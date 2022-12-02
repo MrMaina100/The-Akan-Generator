@@ -1,116 +1,119 @@
+function GetAkans (){
 
-let TheYear = document.getElementById('Years');
-let TheMonth = document.getElementById('Months');
-let TheDay = document.getElementById('Days');
-let TheMale = document.getElementById('male');
-let female = document.getElementById('female');
+    let theYear = document.getElementById('Years').value;
+    let theMonth =Number(document.getElementById('Months').value);
+    let theDay = Number(document.getElementById('Days').value);
+    let genders = document.querySelectorAll('.gender');
 
+    //lets validate tingz
 
-//Validations 
-
-function ValidateYears(){
-
-    let YearError;
-    if(isNaN(TheYear) || TheYear.length < 4 ){
-        YearError = 'its not looking good bruv, input a valid year';
-        document.getElementById('year-Error').innerHTML= YearError;
-        return YearError;
-    }
-}
-
-function ValidateDays(){
-
-    let dayError;
-    if(isNaN(TheDay) || TheDay <= 0 || TheDay > 31){
-        dayError = 'bigMan pick a valid date';
-        document.getElementById('day-Error').innerHTML = dayError;
-        return dayError
-    }
-}
-
-function ValidateMonths(){
-    let monthError;
-    if(isNaN(TheMonth) || TheMonth <= 0 || TheMonth > 12){
-        monthError = 'Pick a valid month mandemmzz';
-        document.getElementById('month-Error').innerHTML = monthError;
-        return monthError;
-    }
-}
-
-//validation of the genders 
-
-function Genders(){
-
-    if(document.getElementById('male').checked){
-        return true;
-    }else if(document.getElementById('female').checked){
-        return true;
-    }else{
-        let genderError;
-        genderError = 'Please select a Gender';
-        document.getElementById('gender-Check').innerHTML = genderError;
-        return genderError;
+    function validateYears (){
+        if(isNaN(theYear) || theYear.length < 4){
+            return false;
+        }else{
+            return true;
+        }
     }
 
+    theYear = validateYears();
+    
+    function validateMonths (){
+        if(isNaN(theMonth) || theMonth <= 0 || theMonth > 12){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    theMonth = validateMonths();
+    // console.log(theMonth);
+
+    function validateDays (){
+        if(isNaN(theDay) || theDay <= 0 || theDay > 31 ){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    theDay = validateDays();
+
+
+    //selecting the genders
+
+
+    function checkedGenders (){
+        if(document.getElementById('male').checked){
+            return true;
+        }else if (document.getElementById('female').checked){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    genders = checkedGenders();
+    console.log(genders);
+
+
+    
+let Exactday = Math.floor((((Number(theYear.slice(0,2))/4)-2*Number(theYear.slice(0,2))-1)+
+          ((5*Number(theYear.slice(2,4))/4))+((26*(theMonth+1)/10))+theDay)%7);
+
+
+let Days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+let AkanMale = ["Kwasi", "Kwadwo", "Kwabena", "Kwaku", "Yaw", "Kofi", "Kwame"];
+
+let AkanFemale = [ "Akosua", "Adwoa", "Abenaa", "Akua", "Yaa", "Afua", "Ama"];
+
+let index;
+
+if(Exactday == 0){
+    index = 6;
+}else{
+    index = Exactday -1;
 }
 
-//function to get the exact day of the week based on the input
 
-function DayOfWeek(){
-    ValidateDays();
-    ValidateMonths();
-    ValidateYears();
+//to return the final results 
 
-    let DD = document.getElementById('Days');
-    let MM = document.getElementById('Months');
-    let Yr = document.getElementById('Years');
+function GetFinal(){
 
+    if(genders == 'male' && theDay && theMonth){
+    let displayMessage = 'You were born on '+ Days[index] + 'and your Akan name is ' + AkanMale[index];
 
-    let dayOfBirth = new Date(DD, MM, Yr);
-    let day = dayOfBirth.getDate();
+    document.getElementById('Displayinfo').innerHTML = displayMessage;
+    return displayMessage;
 
-    return day;
+    
+}else if(genders == 'female' && theDay && theMonth){
+    let displayMessage2 = 'You were born on '+ Days[index] + 'and your Akan name is ' + AkanFemale[index];
 
-
-}
-
-
-function GetAkans(){
-
-//generating the akan names 
-let gender = Genders();
-let ThedayOfTheWeek = DayOfWeek();
-let Week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-let AkanFemale = ['Akosa', 'Adawa', ' Abena', 'Akua', 'Taa', 'Afua', 'Ama'];
-let AkanMale = ['Kwasi', 'Kudwo', 'Kwabera', 'Kwaku', 'Yaw', 'Kofi', 'Kwame'];
-
-
-
-if(gender === 'male'){
-    let userName = AkanMale[ThedayOfTheWeek];
-    let birthday = Week[ThedayOfTheWeek];
-
-    Response = ` Kijana you were Born on a ${birthday} and your akan name is ${userName}`;
-    document.getElementById('Displayinfo').innerHTML = Response;
-}else if(gender === 'female'){
-
-    let userName = AkanFemale[ThedayOfTheWeek];
-    let birthday = Week[ThedayOfTheWeek];
-
-    Response = ` You were Born on a ${birthday} and your akan name is ${userName}`;
-    document.getElementById('Displayinfo').innerHTML = Response;
-
+    document.getElementById('Displayinfo').innerHTML = displayMessage2;
+    return displayMessage2;
 
 }else{
-    
-    let finalError = 'blood is everything okay';
-    document.getElementById('Displayinfo').innerHTML = finalErroro
+
+    let ErrorDisplay = 'My broskii have a go at it again';
+    document.getElementById('Displayinfo').innerHTML = ErrorDisplay;
+    return ErrorDisplay;
 }
 
-console.log(gender, ThedayOfTheWeek);
-
 }
 
+let TheForm = document.getElementById('my-form');
+
+TheForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+
+    GetFinal();
+
+});
+
+
+
+}
 
     
 
