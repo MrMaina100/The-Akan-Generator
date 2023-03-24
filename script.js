@@ -4,6 +4,8 @@ function getAkans(e){
  const theDays = document.getElementById('day');
  const theMonth = document.getElementById('month');
  const theYears = document.getElementById('year');
+ 
+
 
 
 
@@ -112,16 +114,21 @@ if(gender === 'male'){
 }
 
 
-theDays.addEventListener('input', validateDays )
-theMonth.addEventListener('input', validateMonths )
-theYears.addEventListener('input', validateYears)
+
+
+theDays.addEventListener('input', validateDays );
+theMonth.addEventListener('input', validateMonths );
+theYears.addEventListener('input', validateYears);
+
+myform.reset();
 
 }
 
 
 
-document.querySelector('#btn').addEventListener('click', getAkans)
-
+// document.querySelector('#btn').addEventListener('click', getAkans)
+const myform = document.getElementById('form');
+myform.addEventListener('submit', getAkans);
 
     
 
