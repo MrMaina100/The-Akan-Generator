@@ -26,7 +26,7 @@ function getAkans(e){
     if(monthsInput === null || monthsInput > 12|| monthsInput < 1){
         console.log('error pick the correct month');
     }else{
-        console.log('yei.');
+        console.log('great.');
     }
  } 
  
@@ -115,19 +115,19 @@ if(gender === 'male'){
 
 
 
-
 theDays.addEventListener('input', validateDays );
 theMonth.addEventListener('input', validateMonths );
 theYears.addEventListener('input', validateYears);
 
-myform.reset();
+myform.reset()
 
 }
 
 
 
 // document.querySelector('#btn').addEventListener('click', getAkans)
-const myform = document.getElementById('form');
+const myform = document.getElementById('form')
+
 myform.addEventListener('submit', getAkans);
 
     
